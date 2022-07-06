@@ -1,3 +1,4 @@
+
 const possibleOutcome = ["rock", "paper", "scissors"];
 let roundsWonByComputer = 0;
 let roundsWonByPlayer = 0;
@@ -8,11 +9,6 @@ function computerPlay(){
 
 function playSingleRound(playerSelection, computerSelection){
 
-    playerSelection = playerSelection.toLowerCase();
-
-    if(!possibleOutcome.includes(playerSelection)){
-        return "Wrong input. Please try again!"
-    }
 
     if(playerSelection === computerSelection){
         return "You drew!"
@@ -49,6 +45,38 @@ function playSingleRound(playerSelection, computerSelection){
     }
 }
 
-let value = prompt("What do you choose? (Rock, Paper, Scissors)");
 
-console.log(playSingleRound(value, computerPlay()));
+function game(){
+    for (let i = 0; i < 5; i++) {
+        console.log("Round " + (i+1));
+        let playerSelection = prompt("What do you choose? (Rock, Paper, Scissors)");
+
+        playerSelection = playerSelection.toLowerCase();
+
+        if(!possibleOutcome.includes(playerSelection)){
+            i--;
+            console.log("Wrong input. Please try again!");
+        } else {
+            console.log(playSingleRound(playerSelection, computerPlay()));
+        }
+    }
+
+    let winner;
+    let winningPoints
+
+    if(roundsWonByComputer > roundsWonByPlayer){
+        winner = "You lose!";
+        winningPoints = roundsWonByComputer;
+    } else if(roundsWonByComputer < roundsWonByPlayer) {
+        winner = "You win!";
+        winningPoints = roundsWonByPlayer;
+    } else {
+        winner = "Draw! No one won!"
+    }
+
+ 
+    let draw = roundsWonByComputer === roundsWonByPlayer;
+    console.log("The game has finished: " + winner);
+}
+
+game();
